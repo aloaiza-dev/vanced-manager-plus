@@ -200,6 +200,25 @@ ADB="$HOME/Library/Android/sdk/platform-tools/adb"
 Installation on the car is a separate, user-driven step (needs uninstall of the old manager first —
 the key differs). The relay transfer itself was pre-authorized in the Waze handoff.
 
+### Mandatory: grant the install permission on the car (3.6.17+ blocks downloads without it)
+
+Since v3.6.17 the app pre-flights downloads on `canRequestPackageInstalls()`
+(`REQUEST_INSTALL_PACKAGES` appop). On a fresh install the appop is **not granted**, so the first
+Update tap shows the system's "Approve app installs" modal (XPENG renders the permission-approval
+flow as a blocking dialog) and the download never starts. Grant it once per install — over adb it is
+exactly what the dialog's Approve button does:
+
+```sh
+"$ADB" -s 127.0.0.1:15801 shell appops set com.revanced.net.revancedmanager REQUEST_INSTALL_PACKAGES allow
+"$ADB" -s 127.0.0.1:15801 shell appops set com.revanced.net.revancedmanager REQUEST_DELETE_PACKAGES allow
+```
+
+(or on the car: Settings → Apps → ReVanced Manager Plus → Install unknown apps → Allow). Verify:
+`appops get com.revanced.net.revancedmanager REQUEST_INSTALL_PACKAGES` must read `allow`.
+
+After that, Update downloads normally and — because the car has several APK handlers — Install
+opens the chooser (system installer, MT Manager, App Manager, …) as designed.
+
 ---
 
 ## 8. Troubleshooting

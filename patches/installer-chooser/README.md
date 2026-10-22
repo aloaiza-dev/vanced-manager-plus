@@ -100,3 +100,10 @@ private), so it **must be installed over an uninstalled** ReVanced Manager Plus:
 
 The manager's own data/preferences reset on reinstall (same as any re-sign), but the patched apps
 it manages are untouched.
+
+> **Required after install:** grant the install permission once, or Update/install attempts are
+> blocked by the system "Approve app installs" dialog and downloads never start
+> (since v3.6.17 downloads are gated on `canRequestPackageInstalls()`). Over adb:
+> `appops set com.revanced.net.revancedmanager REQUEST_INSTALL_PACKAGES allow` (also
+> `REQUEST_DELETE_PACKAGES`), or on the car: Settings → Apps → ReVanced Manager Plus →
+> Install unknown apps → Allow. Details in PATCHING-MANUAL.md §7.
