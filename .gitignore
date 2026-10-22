@@ -17,3 +17,6 @@ local.properties
 *.sample.txt
 .kotlin
 __pycache__
+# local patch build outputs and signing material
+/signing/
+/dist/
