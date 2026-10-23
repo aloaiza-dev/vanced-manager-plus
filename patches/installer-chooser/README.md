@@ -43,6 +43,7 @@ before. Everything is defensive: any error falls back to the stock path.
 
 | File | What it is |
 | --- | --- |
+| `RECIPE.md` | One-file end-to-end runbook: official APK → hooks → build → sign → emulator verify → car deploy → permission grant. |
 | `PATCHING-MANUAL.md` | Runbook to repeat this patch on a **new** release (hook re-location, build, verify, car deploy). |
 | `src/InstallerChooserPatcher.java` | The helper, compiled into `classes2.dex` (count installers, expose APK, chooser, hand-off bookkeeping). |
 | `smali/ih.smali.patch.md` | Gate hook in the install wrapper (`AppManager.c`, obfuscated `ih.smali`): run the helper before committing a session; on hand-off return success and skip the session. |
